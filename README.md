@@ -328,13 +328,5 @@ All rights reserved for Twitter by Twitter, Inc.
 
 ---
 
-## 🙏 Acknowledgments
-
-- Original Twitter Clone by [Rafael Almeida](https://github.com/rafaelalmeidatk)
-- Big Data Analytics Lab, University (Data Science)
-- Modern web development community
-
----
-
 **Last Updated:** December 11, 2025
 **Status:** ✅ Production Ready for Demonstration
