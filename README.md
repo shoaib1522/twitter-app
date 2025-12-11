@@ -315,8 +315,8 @@ docker-compose restart api
 
 **Muhammad Shoaib Ahmad**
 - GitHub: https://github.com/shoaib1522
-- Email: shoaib1522@example.com
-- University: University (Data Science) - Semester 7
+- Email: shoaibmughal1522@gmail.com
+- University: University (Data Science) 
 
 ---
 
