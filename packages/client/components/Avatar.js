@@ -53,7 +53,7 @@ const Avatar = ({ src, size, withBorder, className }) => (
 );
 
 Avatar.defaultProps = {
-  src: 'https://api.adorable.io/avatars/200/default.png',
+  src: 'https://api.dicebear.com/7.x/avataaars/svg?seed=default&scale=80',
   size: 'medium',
 };
 
