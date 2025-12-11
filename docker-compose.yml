@@ -3,28 +3,67 @@ services:
   api:
     build:
       context: .
+      dockerfile: Dockerfile
       target: api
     environment:
-      - DATABASE_URL=postgres://twitterclone:twitterclone@db:5432/dev_twitter_clone
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - NODE_ENV=development
     ports:
       - '4100:4100'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
-      - .:/app/
+      - .:/app
       - /app/node_modules
+      - /app/packages/server/node_modules
     networks:
       - app-network
+    stdin_open: true
+    tty: true
+    command: /bin/sh -c "cd packages/server && yarn dev"
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web
+    environment:
+      - API_URL=http://api:4100
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/packages/client/node_modules
+    networks:
+      - app-network
+    stdin_open: true
+    tty: true
 
   db:
     image: postgres:11.1-alpine
     environment:
-      - POSTGRES_USER=twitterclone
-      - POSTGRES_PASSWORD=twitterclone
-      - POSTGRES_DB=dev_twitter_clone
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  postgres_data:
